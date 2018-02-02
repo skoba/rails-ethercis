@@ -47,7 +47,7 @@ database seed file creates 50 peple files
 
 ## How to run the test suite
 ```
-# bin rails rspec
+# bin/rails rspec
 ```
 ## Current issues
 

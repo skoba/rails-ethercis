@@ -12,7 +12,7 @@ RSpec.describe Template, type: :model do
   
   example 'get all templates' do
     templates = Template.all
-    expect(templates.size).to eq 1
+    expect(templates.size).to eq 2
   end
 
   xexample 'delete template' do
