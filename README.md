@@ -2,10 +2,11 @@
 
 This is a rails application to use EhterCIS as its backend.
 
-* Ruby version 2.5 or later
+## Ruby version
+ 2.5 or later
 
 
-* System dependencies
+## System dependencies
 
 EtherCIS can be installed via docker compose.
 
@@ -16,11 +17,11 @@ https://github.com/alessfg/docker-ethercis
 Ruby 2.5.0 and Rails 5.1.x should be intalled.
 Database system is sqlite3.
 
-* Configuration
+## Configuration
 
 Tentatively, EtherCIS server is supposed to http://localhost:8888/
 
-* Run system
+##  Run system
 
 Running Server is conventional rails way.
 
@@ -31,25 +32,25 @@ Running Server is conventional rails way.
 Access to person list: http://localhost:3000/people
 Access to templates: http://localhost:3000/templates
 
-* Database creation
+##  Database creation
 The database is sqlite3. 
 ```
 # bin/rails db:create
 ```
 
-* Database initialization
-database setup creates 50 peple files
+##  Database initialization
+
+database seed file creates 50 peple files
 ```
-# bin/rails db:setup
+# bin/rails db:seed
 ```
 
-* How to run the test suite
+## How to run the test suite
 ```
 # bin rails rspec
 ```
-* Current issues
+## Current issues
 
-# remove magic numbers
-# management session id
+ * remove magic numbers
+ * management session id
 
-*
