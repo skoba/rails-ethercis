@@ -1,0 +1,49 @@
+/.bundle
+
+/app
+/config
+/public
+/vendor
+/plugin
+/db
+/bin
+
+# For emacs:
+*~
+\#*
+.\#*
+
+# sinplecov generate file
+coverage.data
+coverage
+
+pkg
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# document files are not used
+/doc
+
+#bundler
+.bundle
+*.lock
+
+#
+# For MacOS:
+#
+.DS_Store
+
+# For TextMate
+#*.tmproj
+#tmtags
+
+# For vim:
+#*.swp
+
+# For redcar:
+#.redcar
+
+# For rubinius:
+#*.rbc
