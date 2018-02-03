@@ -15,15 +15,15 @@ END
 
   before(:all) do
     @ehr = Ehr.create(subject_id: SecureRandom.uuid)
+    @composition = Composition.create(ehr_id: @ehr['ehrId'], template_id: 'VitalSignDemo', data: JSON_DATA)
   end
 
   example 'make composition' do
-    @composition = Composition.create(ehr_id: @ehr['ehrId'], template_id: 'VitalSignDemo', data: JSON_DATA)
     expect(@composition.status).to eq 200
   end
 
   example 'domain part should be removed from id' do
-    expect(@composition.id).to eq /(\h)+-(\h)+-(\h)+-(\h)+-(\h)+/
+    expect(@composition.id).to match /(\h)+-(\h)+-(\h)+-(\h)+-(\h)+/
   end
 
   xexample 'retrieve composition list form ehr_id' do
