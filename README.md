@@ -1,6 +1,6 @@
 # Rais frontend for EtherCIS
 
-This is a rails application to use EhterCIS as its backend.
+This is an openEHR based rails application using EhterCIS as its backend.
 
 ## Ruby version
  2.5 or later
@@ -8,11 +8,10 @@ This is a rails application to use EhterCIS as its backend.
 
 ## System dependencies
 
-EtherCIS can be installed via docker compose.
+EtherCIS can be installed via docker compose from the following site.
 
-```
 https://github.com/alessfg/docker-ethercis
-```
+
 
 Ruby 2.5.0 and Rails 5.1.x should be intalled.
 Database system is sqlite3.
@@ -40,9 +39,10 @@ The database is sqlite3.
 
 ##  Database initialization
 
-database seed file creates 50 peple files
+The following script completets database migration and seeding 50 pepole with dummy data.
+
 ```
-# bin/rails db:seed
+# bin/rails db:setup
 ```
 
 ## How to run the test suite
@@ -53,4 +53,4 @@ database seed file creates 50 peple files
 
  * remove magic numbers
  * management session id
-
+ * visualize!
