@@ -1,9 +1,8 @@
+# coding: utf-8
 require 'rails_helper'
 
-
-RSpec.describe Composition, type: :model do
-  JSON_DATA = <<END
-{ 
+JSON_DATA = <<'END'
+{
         "/language":"ja",
         "/category":"openehr::433|event|",
         "/territory":"JP",
@@ -13,6 +12,7 @@ RSpec.describe Composition, type: :model do
 }
 END
 
+RSpec.describe Composition, type: :model do
   before(:all) do
     @ehr = Ehr.create(subject_id: SecureRandom.uuid)
     @composition = Composition.create(ehr_id: @ehr['ehrId'], template_id: 'VitalSignDemo', data: JSON_DATA)
@@ -26,15 +26,21 @@ END
     expect(@composition.id).to match /(\h)+-(\h)+-(\h)+-(\h)+-(\h)+/
   end
 
-  xexample 'retrieve composition list form ehr_id' do
-    ehr_id = 'ehrcd8abecd-9925-4313-86af-93aab4930eae'
-    expect(Composition.find_by_ehr_id(ehr_id)).not_to be_empty
+  example 'retrieve composition list form ehr_id' do
+    expect(Composition.find_by_ehr_id(@ehr.id)).not_to be_empty
   end
 
-  xexample 'retrieve a composition by id' do
-    composition_id = '001081d0-9ced-4ce6-bc1d-431895cad08c'
-    expect(Composition.find(composition_id)).not_to be_empty
-  end
+  describe 'composition data' do
+    let(:composition) { Composition.find(@composition.id) }
+    
+    example 'retrieve a composition by id' do
+      expect(Composition.find(composition.id)).not_to be_empty
+    end
 
+    it 'systolic blood pressure is 120' do
+      systolic_bp_path = '/encounter/血圧:0/任意のイベント:0/収縮期|magnitude'
+      expect(composition.data[systolic_bp_path]).to eq 120.0
+    end
+  end
 end
 
