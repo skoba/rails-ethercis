@@ -14,7 +14,8 @@ END
 
 RSpec.describe Composition, type: :model do
   before(:all) do
-    @ehr = Ehr.create(subject_id: SecureRandom.uuid)
+    @session_id = AccessToken.get
+    @ehr = Ehr.create(subject_id: SecureRandom.uuid, session_id: @session_id)
     @composition = Composition.create(ehr_id: @ehr['ehrId'], template_id: 'VitalSignDemo', data: JSON_DATA)
   end
 
@@ -34,13 +35,16 @@ RSpec.describe Composition, type: :model do
     let(:composition) { Composition.find(@composition.id) }
     
     example 'retrieve a composition by id' do
-      expect(Composition.find(composition.id)).not_to be_empty
+      expect(Composition.find(composition.id).id).to eq @composition.id
     end
 
-    it 'systolic blood pressure is 120' do
+    
+    xit 'systolic blood pressure is 120' do
       systolic_bp_path = '/encounter/血圧:0/任意のイベント:0/収縮期|magnitude'
       expect(composition.data[systolic_bp_path]).to eq 120.0
     end
   end
+
+  after(:all) { AccessToken.drop(@session_id) }
 end
 

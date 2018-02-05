@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe Template, type: :model do
   before(:all) do
-    opt_file = Rails.root.join('doc/operational_templates/Allergies.opt')
+    opt_file = Rails.root.join('doc/operational_templates/VitalSignDemo.opt')
     @template = Template.create(file: opt_file.to_s)
   end
 

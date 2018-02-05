@@ -24,7 +24,7 @@ pkg
 /tmp
 
 # document files are not used
-/doc
+#/doc
 
 #bundler
 .bundle
