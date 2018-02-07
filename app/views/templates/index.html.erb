@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Templates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Template ID</th>
+      <th>Created date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @templates.each do |template| %>
+      <tr>
+        <td><%= template['templateId'] %></td>
+        <td><%= template['createdOn'] %></td>
+        <td><%= link_to 'Show', template %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Template', new_template_path %>

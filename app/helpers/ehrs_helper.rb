@@ -1,0 +1,2 @@
+module EhrsHelper
+end

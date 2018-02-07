@@ -1,0 +1,2 @@
+class EhrsController < ApplicationController
+end

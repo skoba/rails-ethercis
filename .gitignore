@@ -1,11 +1,5 @@
 /.bundle
-
-/app
-/config
-/public
-/vendor
-/plugin
-/db
+/db/*.sqlite3
 /bin
 
 # For emacs:

@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <th>name</th>
+    <th>date</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @compositions.each do |composition| %>
+    <tr>
+      <td><%= composition['name'] %></td>
+      <td><%= composition['start_time'] %></td>
+      <td><%= link_to 'show', composition_path(composition[:uid][0..35]) %></td>
+    </tr>
+    <% end %>
+    <%= link_to 'New Composition', new_composition_path %>
+  </tbody>
+</table>

@@ -13,6 +13,14 @@ RSpec.describe Base, type: :model do
     example 'path_prefix' do
       expect(Base.path_prefex).to eq Ethercis['path_prefix']
     end
+
+    example 'username' do
+      expect(Base.username).to eq Ethercis['username']
+    end
+
+    example 'password' do
+      expect(Base.password).to eq Ethercis['password']
+    end      
   end
 
   describe 'session management' do
