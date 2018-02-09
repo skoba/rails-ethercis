@@ -1,9 +1,9 @@
 COMMON: &COMMON
-  site: 'http://localhost'
+  host: http://localhost
   port: 8888
-  path_prefex: 'rest/v1'
-  username: 'root'
-  password: 'secret'
+  path_prefix: rest/v1
+  username: root
+  password: secret
   
 development:
   <<: *COMMON

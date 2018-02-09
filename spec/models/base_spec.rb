@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Base, type: :model do
   describe 'Settings from configuration file under initializer' do
     it 'site_url is defined in configuration'  do
-      expect(Base.site_url).to eq Ethercis['site']
+      expect(Base.host).to eq Ethercis['host']
     end
 
     example 'port' do
@@ -11,7 +11,7 @@ RSpec.describe Base, type: :model do
     end
 
     example 'path_prefix' do
-      expect(Base.path_prefex).to eq Ethercis['path_prefix']
+      expect(Base.path_prefix).to eq Ethercis['path_prefix']
     end
 
     example 'username' do
@@ -20,7 +20,11 @@ RSpec.describe Base, type: :model do
 
     example 'password' do
       expect(Base.password).to eq Ethercis['password']
-    end      
+    end
+
+    example 'full_uri' do
+      expect(Base.full_uri).to eq "#{Ethercis['host']}:#{Ethercis['port']}/#{Ethercis['path_prefix']}"
+    end
   end
 
   describe 'session management' do
@@ -28,5 +32,7 @@ RSpec.describe Base, type: :model do
     example 'set ehr_session' do
       expect{ Base.send(:set_ehr_session) }.not_to raise_error
     end
+
+
   end
 end
