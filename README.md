@@ -14,10 +14,11 @@ https://github.com/alessfg/docker-ethercis
 
 
 Ruby 2.5.0 and Rails 5.1.x should be intalled.
-Database system is sqlite3.
+Tentatively database system is sqlite3, but other databases would be available.
 
 ## Configuration
 
+The EtherCIS configuration file is /conf/ethercis.yml.
 Tentatively, EtherCIS server is supposed to http://localhost:8888/
 
 ##  Run system
