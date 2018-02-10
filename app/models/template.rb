@@ -21,7 +21,9 @@ class Template < Base
     response = self.connection.get 'template'
     self.close_ehr_session
     result = JSON.parse(response.body)
-    result['templates']
+    result['templates'].map do |template|
+      Template.new(id: template['templateId'],status: template['status']) 
+    end
   end
 
   def delete
