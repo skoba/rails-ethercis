@@ -1,7 +1,4 @@
 class Ehr < Base
-  # belongs_to :person
-  # has_many :comositions
-
   attr_reader :id, :subject_id
 
   def initialize(params)
