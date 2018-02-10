@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Ehr, type: :model do
-#  it { should  have_many(:compositions) }
-
   before(:all) do
-    @ehr = Ehr.create(subject_id: SecureRandom.uuid)
+    @person = create :person
+    @ehr = Ehr.create(subject_id: @person.id)
   end
 
   describe 'create EHR with EtherCIS' do
@@ -30,5 +29,13 @@ RSpec.describe Ehr, type: :model do
     end
   end
 
-#  after(:all)
+  describe 'associations' do
+    example 'collect compositions by association' do
+      expect(@ehr.compositions).not_to be_nil
+    end
+
+    example 'person information from association' do
+      expect(@ehr.person).not_to be_nil
+    end
+  end
 end

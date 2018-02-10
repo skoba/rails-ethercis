@@ -28,4 +28,12 @@ class Ehr < Base
     self.set_ehr_session
     self.create(params)
   end
+
+  def compositions
+    Composition.find_by_ehr_id(@id)
+  end
+
+  def person
+    Person.find(@subject_id)
+  end
 end
