@@ -20,7 +20,9 @@ class Ehr < Base
 
   def self.create(params)
     self.set_ehr_session
-    response = self.connection.post "ehr?subjectId=#{params[:subject_id]}&subjectNamespace=#{self.subject_namespace}" #, {'subjectId' => params[:subject_id], 'subjectNamespace' => self.subject_namespace}
+    response = self.connection.post 'ehr' do |req|
+      req.params = {'subjectId' => params[:subject_id], 'subjectNamespace' => self.subject_namespace}
+    end
     result = JSON.parse(response.body)
     self.close_ehr_session
     self.new(id: result['ehrId'], subject_id: params[:subject_id])
