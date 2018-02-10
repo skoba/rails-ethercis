@@ -8,7 +8,7 @@ Her::API.setup url: "http://localhost:8888/rest/v1/" do |c|
 #  c.use Faraday::Request::Retry, max: 1, interval: 0.05,
 #                                 interval_randomness: 0.5, backoff_factor: 2,
 #                                 exceptions: [CustomRaiseError::UnauthorizedError]
-  c.use ClientCredential
+#  c.use ClientCredential
 
   # Response
 #  c.use Faraday::Middleware::Logger

@@ -14,9 +14,8 @@ END
 
 RSpec.describe Composition, type: :model do
   before(:all) do
-    @session_id = AccessToken.get
-    @ehr = Ehr.create(subject_id: SecureRandom.uuid, session_id: @session_id)
-    @composition = Composition.create(ehr_id: @ehr['ehrId'], template_id: 'VitalSignDemo', data: JSON_DATA)
+    @ehr = Ehr.create(subject_id: SecureRandom.uuid)
+    @composition = Composition.create(ehr_id: @ehr.id, template_id: 'VitalSignDemo', data: JSON_DATA)
   end
 
   example 'make composition' do

@@ -2,28 +2,33 @@ class Ehr < Base
   belongs_to :person
   has_many :comositions
 
-  attr_reader :id
+  attr_reader :id, :subject_id
 
-  def self.find(id, session_id)
-    con = Faraday.new(url { 'Ehr-Session' => session_id }
-    res = con.get "http://localhost:8888/rest/v1/ehr/#{id}"
+  def initialize(params)
+    @id = params[:id]
+    @subject_id = params[:subject_id]
+  end
+  
+  def self.find(id)
+    self.set_ehr_session
+    res = self.connection.get "ehr/#{id}"
+    self.close_ehr_session
   end
 
   def self.create(params)
-    con = Faraday.new
-    res = post "http://localhost:8888/rest/v1/ehr?subjectId=#{params[:subject_id]}&subjectNamespace=#{RailsEthercis::Application.config.subject_namespace}"
-    @id = res['ehrId']
-    res
+    self.set_ehr_session
+    response = self.connection.post "ehr?subjectId=#{params[:subject_id]}&subjectNamespace=#{self.subject_namespace}" #, {'subjectId' => params[:subject_id], 'subjectNamespace' => self.subject_namespace}
+    result = JSON.parse(response.body)
+    self.close_ehr_session
+    self.new(id: result['ehrId'], subject_id: params[:subject_id])
   end
 
+  # def self.connection
+  #   super
+  # end
   # this method does not work well
   # def self.destroy(params)
   #   delete "http://localhost:8888/rest/v1/ehr?ehrId=#{params[:ehr_id]}"
   # end
 
-  def 
-  protected
-  def set_ehr_session_id
-    
-  end
 end

@@ -4,23 +4,22 @@ RSpec.describe Ehr, type: :model do
 #  it { should  have_many(:compositions) }
 
   before(:all) do
-    @session_id = AccessToken.get
-    @ehr = Ehr.create(subject_id: SecureRandom.uuid, session_id: @session_id)
+    @ehr = Ehr.create(subject_id: SecureRandom.uuid)
   end
 
   describe 'create EHR with EtherCIS' do
     example 'create EHR' do
-      expect(@ehr['action']).to eq 'CREATE'
+      expect(@ehr).not_to be_nil
     end
 
     example 'ehrId should not nil' do
-      expect(@ehr['ehrId']).not_to be_empty
+      expect(@ehr.id).not_to be_empty
     end
   end
 
   describe 'get EHR from EtherCIS' do
     example 'EHR can retrieve by ID' do
-      ehr = Ehr.find(@ehr['ehrId'], session_id: @session_id)
+      ehr = Ehr.find(@ehr.id) #, session_id: @session_id)
       expect(ehr).not_to be_nil
     end
   end
@@ -31,5 +30,5 @@ RSpec.describe Ehr, type: :model do
     end
   end
 
-  after(:all)
+#  after(:all)
 end

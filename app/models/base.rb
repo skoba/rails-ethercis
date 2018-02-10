@@ -1,6 +1,6 @@
 class Base
   include Her::Model
- 
+
   def self.host
     Ethercis['host']
   end
@@ -27,13 +27,25 @@ class Base
     uri.to_s
   end
 
+  def self.subject_namespace
+    Ethercis['subject_namespace']
+  end
+
+  protected
   def self.connection
     @@con ||= Faraday::Connection.new self.full_uri
   end  
   
   def self.set_ehr_session
-    self.connection.params = {'username' => self.username, 'password' => self.password }
-    res = self.connection.post 'session'
-    self.connection.headers['Ehr-Session'] = res['ehr-session']
+    res = self.connection.post 'session', self.account
+    self.connection.headers['Ehr-Session'] = res.headers['ehr-session']
+  end
+
+  def self.close_ehr_session
+    self.connection.delete 'session', self.account
+  end
+
+  def self.account
+    @@account ||= {'username' => self.username, 'password' => self.password }
   end
 end

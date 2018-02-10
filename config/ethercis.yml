@@ -4,6 +4,7 @@ COMMON: &COMMON
   path_prefix: rest/v1
   username: root
   password: secret
+  subject_namespace: RailsDB
   
 development:
   <<: *COMMON

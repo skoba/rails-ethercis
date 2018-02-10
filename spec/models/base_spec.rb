@@ -25,14 +25,19 @@ RSpec.describe Base, type: :model do
     example 'full_uri' do
       expect(Base.full_uri).to eq "#{Ethercis['host']}:#{Ethercis['port']}/#{Ethercis['path_prefix']}"
     end
+
+    example 'subject namespace' do
+      expect(Base.subject_namespace).to eq Ethercis['subject_namespace']
+    end
   end
 
   describe 'session management' do
-    
     example 'set ehr_session' do
       expect{ Base.send(:set_ehr_session) }.not_to raise_error
     end
 
-
+    example 'remobe ehr_session' do
+      expect{ Base.send(:close_ehr_session) }.not_to raise_error
+    end
   end
 end

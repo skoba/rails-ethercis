@@ -18,20 +18,11 @@ class Composition < Base
   end
 
   def self.create(params)
-    con = Faraday::Connection.new(url: 'http://localhost:8888/rest/v1') do |req|
-      req.adapter Faraday.default_adapter
-    end
-    res = con.post 'session?username=root&password=secret'
-    session_id = res.headers['ehr-session']
-    acon = Faraday::Connection.new(url: 'http://localhost:8888/',
-                                   headers: {'Ehr-Session' => session_id}) do |req|
-      req.adapter Faraday.default_adapter
-    end
-    acon.path_prefix = 'rest/v1/'
-    res = acon.post "composition?ehrId=#{params[:ehr_id]}&templateId=#{params[:template_id]}&format=ECISFLAT" do |req, response|
+    self.set_ehr_session
+    res = self.connection.post "composition?ehrId=#{params[:ehr_id]}&templateId=#{params[:template_id]}&format=ECISFLAT" do |req, response|
       req.body = params[:data]
     end
-    acon.delete 'session'
+    self.close_ehr_session
     body = JSON.parse(res.body)
     Composition.new(id: body['compositionUid'][0..35], template_id: params[:template_id], format: 'ECISFLAT', data: params[:data], status: res.status)
   end
