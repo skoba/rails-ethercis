@@ -1,30 +1,33 @@
 class Template < Base
-  collection_path 'rest/v1/template'
+  attr_reader :id, :status
+
+  def initialize(params)
+    @id = params[:id]
+    @status = params[:status]
+  end
 
   def self.create(params)
-    con = Faraday::Connection.new(url: 'http://localhost:8888/rest/v1') do |req|
-      req.adapter Faraday.default_adapter
-    end
-    res = con.post 'session?username=root&password=secret'
-    session_id = res.headers['ehr-session']
-    acon = Faraday::Connection.new(url: 'http://localhost:8888/',
-                                   headers: {'Ehr-Session' => session_id}) do |req|
-      req.adapter Faraday.default_adapter
-    end
-    acon.path_prefix = 'rest/v1/'
-    res = acon.post 'template' do |req|
+    self.set_ehr_session
+    response = self.connection.post 'template' do |req|
       req.body=File.binread(params[:file])
     end
-    acon.delete 'session'
-    res
+    result = JSON.parse(response.body)
+    self.close_ehr_session
+    self.new(id: result['templateId'], status: response.status)
   end
 
   def self.all
-    res = get 'http://localhost:8888/rest/v1/template'
-    res.templates
+    self.set_ehr_session
+    response = self.connection.get 'template'
+    self.close_ehr_session
+    result = JSON.parse(response.body)
+    result['templates']
   end
 
   def delete
-    delete "http://localhost:8888/rest/v1/template/#{self.templateId}"
+    self.set_ehr_session
+    res = delete "http://localhost:8888/rest/v1/template/#{self.templateId}"
+    self.close_ehr_session
+    res
   end
 end

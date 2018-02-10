@@ -3,7 +3,7 @@ class Person < ApplicationRecord
 
   def self.create(params)
     person = super
-    person.ehr_id = Ehr.create(subject_id: person.id)
+    person.ehr_id = Ehr.create(subject_id: person.id).id
     person.save
     person
   end

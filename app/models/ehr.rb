@@ -1,6 +1,6 @@
 class Ehr < Base
-  belongs_to :person
-  has_many :comositions
+  # belongs_to :person
+  # has_many :comositions
 
   attr_reader :id, :subject_id
 
@@ -13,6 +13,9 @@ class Ehr < Base
     self.set_ehr_session
     res = self.connection.get "ehr/#{id}"
     self.close_ehr_session
+  rescue
+    self.set_ehr_session
+    self.find(id)
   end
 
   def self.create(params)
@@ -21,14 +24,8 @@ class Ehr < Base
     result = JSON.parse(response.body)
     self.close_ehr_session
     self.new(id: result['ehrId'], subject_id: params[:subject_id])
+  rescue
+    self.set_ehr_session
+    self.create(params)
   end
-
-  # def self.connection
-  #   super
-  # end
-  # this method does not work well
-  # def self.destroy(params)
-  #   delete "http://localhost:8888/rest/v1/ehr?ehrId=#{params[:ehr_id]}"
-  # end
-
 end

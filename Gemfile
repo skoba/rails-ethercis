@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'her'
+#gem 'her'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'excon'

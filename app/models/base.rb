@@ -1,5 +1,5 @@
 class Base
-  include Her::Model
+#  include Her::Model
 
   def self.host
     Ethercis['host']
