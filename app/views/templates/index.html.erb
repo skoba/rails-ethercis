@@ -14,9 +14,8 @@
   <tbody>
     <% @templates.each do |template| %>
       <tr>
-        <td><%= template['templateId'] %></td>
-        <td><%= template['createdOn'] %></td>
-        <td><%= link_to 'Show', template %></td>
+        <td><%= template.id %></td>
+        <td><%= template.created %></td>
       </tr>
     <% end %>
   </tbody>

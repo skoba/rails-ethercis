@@ -1,9 +1,10 @@
 class Template < Base
-  attr_reader :id, :status
+  attr_reader :id, :status, :created
 
   def initialize(params)
     @id = params[:id]
     @status = params[:status]
+    @created = params[:created]
   end
 
   def self.create(params)
@@ -14,6 +15,9 @@ class Template < Base
     result = JSON.parse(response.body)
     self.close_ehr_session
     self.new(id: result['templateId'], status: response.status)
+  rescue
+    self.set_ehr_session
+    self.create(params)
   end
 
   def self.all
@@ -22,8 +26,11 @@ class Template < Base
     self.close_ehr_session
     result = JSON.parse(response.body)
     result['templates'].map do |template|
-      Template.new(id: template['templateId'],status: template['status']) 
+      Template.new(id: template['templateId'],status: template['status'], created: template['createdOn'])
     end
+  rescue
+    self.set_ehr_session
+    self.all
   end
 
   def delete
