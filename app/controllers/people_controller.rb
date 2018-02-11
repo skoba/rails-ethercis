@@ -10,7 +10,7 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
-    @compositions = Composition.find_by_ehr_id(@person.ehr_id)
+    @compositions = @person.ehr.compositions
   end
 
   # GET /people/new

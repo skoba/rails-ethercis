@@ -6,6 +6,6 @@ FactoryBot.define do
     date_of_birth { Faker::Date.birthday.to_s }
     address { Faker::Address.full_address }
     phone { Faker::PhoneNumber.cell_phone }
-    ehr_id ""
+#    ehr_id ""
   end
 end

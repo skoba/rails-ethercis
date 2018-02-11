@@ -8,8 +8,9 @@ class Ehr < Base
   
   def self.find(id)
     self.set_ehr_session
-    res = self.connection.get "ehr/#{id}"
+    response = self.connection.get "ehr/#{id}"
     self.close_ehr_session
+    self.new(id: id, subject_id: Person.find_by(ehr_id: id).id)
   rescue
     self.set_ehr_session
     self.find(id)

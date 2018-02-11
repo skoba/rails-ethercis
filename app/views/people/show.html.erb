@@ -30,7 +30,7 @@
   <%= @person.ehr_id %>
 </p>
 
-<%= render partial: 'composition' %>
+<%= render partial: 'composition' if @composition %>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

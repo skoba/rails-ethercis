@@ -2,8 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Ehr, type: :model do
   before(:all) do
-    @person = create :person
-    @ehr = Ehr.create(subject_id: @person.id)
+    @person = Person.create(
+      name: Faker::Name.name,
+      gender: Faker::Demographic.sex,
+      date_of_birth: Faker::Date.birthday.to_s,
+      address: Faker::Address.full_address,
+      phone: Faker::PhoneNumber.cell_phone
+    )
+    @ehr = @person.ehr
   end
 
   describe 'create EHR with EtherCIS' do
@@ -18,7 +24,7 @@ RSpec.describe Ehr, type: :model do
 
   describe 'get EHR from EtherCIS' do
     example 'EHR can retrieve by ID' do
-      ehr = Ehr.find(@ehr.id) #, session_id: @session_id)
+      ehr = Ehr.find(@ehr.id)
       expect(ehr).not_to be_nil
     end
   end
