@@ -1,0 +1,6 @@
+<h1>AQL manager</h1>
+<%= form_tag({controller: :aql, action: :index}, {method: :get}) do %>
+<%= text_area_tag 'query[:aql]' %>
+<%= submit_tag 'Query' %>
+<% end %>
+<%= render partial: 'result' if @result %>
