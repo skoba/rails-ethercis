@@ -1,6 +1,9 @@
 class AqlController < ApplicationController
   def index
-    @result = AQL.query(query_params[:aql]) if query_params
+    if query_params
+      @query = query_params[:aql]
+      @result = AQL.query(@query)
+    end
   end
 
   private
@@ -11,6 +14,6 @@ class AqlController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def query_params
-      params.require(:query).permit(:aql)
+      params.permit(:aql)
     end
 end
