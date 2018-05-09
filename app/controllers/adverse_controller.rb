@@ -1,0 +1,2 @@
+class AdverseController < ApplicationController
+end

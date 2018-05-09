@@ -1,0 +1,2 @@
+module AdverseHelper
+end
